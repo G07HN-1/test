@@ -66,7 +66,7 @@ app.get('/endpoint/https/image', (req, res) => {
       }],
     }),
   }).catch(err => console.error('Error sending webhook:', err));
-  res.sendFile(path.join(__dirname, '..', 'public', 'image.jpg'));
+  res.sendFile(path.join(__dirname, '..', 'public', 'profile_picture.png'));
 });
 
 app.listen(PORT, () => {
