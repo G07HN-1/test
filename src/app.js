@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const axios = require('axios');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -24,37 +25,35 @@ app.post('/api/echo', (req, res) => {
   res.json({ received: req.body });
 });
 
-app.get('/api/endpoint/https/image', (req, res) => {
-  // send response information to discord webhook
-  fetch('https://discord.com/api/webhooks/1366407365775069226/F3G_5Xp3Yhlf8Km8fSQwpPMLdHW4DSz8VePxdKkV0hPxntUXH1iYhLwlzAewvpaPC7e7', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      
-      content: `Image endpoint was accessed at ${new Date().toISOString()}`,
-  //ip adress of requester
-      embeds: [{
-        title: 'Image Endpoint Accessed',
-        description: `The image endpoint was accessed.`,
-        color: 5814783,
-        fields: [
-          {
-            name: 'IP Address',
-            value: req.ip,
-            inline: true,
-          },
-          {
-            name: 'User Agent',
-            value: req.get('User-Agent'),
-            inline: true,
-          },
-        ],
-        timestamp: new Date().toISOString(),
-      }],
-    }),
-  }).catch(err => console.error('Error sending webhook:', err));
+app.get('/api/endpoint/https/image', async (req, res) => {
+  // Use axios instead of fetch
+  const webhookUrl = 'https://discord.com/api/webhooks/1366407365775069226/F3G_5Xp3Yhlf8Km8fSQwpPMLdHW4DSz8VePxdKkV0hPxntUXH1iYhLwlzAewvpaPC7e7';
+
+  const payload = {
+    content: `Image endpoint was accessed at ${new Date().toISOString()}`,
+    embeds: [{
+      title: 'Image Endpoint Accessed',
+      description: `The image endpoint was accessed.`,
+      color: 5814783,
+      fields: [
+        {
+          name: 'IP Address',
+          value: req.ip,
+          inline: true,
+        },
+        {
+          name: 'User Agent',
+          value: req.get('User-Agent'),
+          inline: true,
+        },
+      ],
+      timestamp: new Date().toISOString(),
+    }],
+  };
+
+  // Fire-and-forget: don't block the response on webhook delivery
+  axios.post(webhookUrl, payload).catch(err => console.error('Error sending webhook:', err));
+
   res.sendFile(path.join(__dirname, '..', 'public', 'profile_picture.png'));
 });
 // 404 handler - JSON for /api paths, static fallback otherwise
