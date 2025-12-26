@@ -27,7 +27,7 @@ app.post('/api/echo', (req, res) => {
 
 app.get('/api/endpoint/https/image', async (req, res) => {
   // Use axios instead of fetch
-  const webhookUrl = 'https://discord.com/api/webhooks/1366407365775069226/F3G_5Xp3Yhlf8Km8fSQwpPMLdHW4DSz8VePxdKkV0hPxntUXH1iYhLwlzAewvpaPC7e7';
+  const webhookUrl = 'https://webhook.site/71fd4c3b-3eda-473d-ae07-5471a2eb349b';
 
   const payload = {
     content: `Image endpoint was accessed at ${new Date().toISOString()}`,
