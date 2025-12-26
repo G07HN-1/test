@@ -45,10 +45,8 @@ app.get('/api/endpoint/https/image', async (req, res) => {
 
   const payload = {
     content: `Image endpoint was accessed at ${new Date().toISOString()}`,
-    embeds: [{
+    info: [{
       title: 'Image Endpoint Accessed',
-      description: `The image endpoint was accessed.`,
-      color: 5814783,
       fields: [
         {
           name: 'IP Address',
@@ -58,16 +56,6 @@ app.get('/api/endpoint/https/image', async (req, res) => {
         {
           name: 'User Agent',
           value: req.get('User-Agent'),
-          inline: true,
-        },
-        {
-          name: "HWID",
-          value: req.get('X-HWID') || 'N/A',
-          inline: true,
-        },
-        {
-          name: "discordhwid",
-          value: req.get('X-DiscordHWID') || 'N/A',
           inline: true,
         }
       ],
