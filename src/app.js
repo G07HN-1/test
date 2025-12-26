@@ -3,10 +3,24 @@ const path = require('path');
 const axios = require('axios');
 
 const app = express();
+app.set('trust proxy', true);
 const PORT = process.env.PORT || 3000;
 
 // Parse JSON bodies
 app.use(express.json());
+
+/**
+ * Get the client's IP address, respecting common proxy headers like X-Forwarded-For.
+ * Falls back to the socket address if no proxy header is present.
+ */
+function getClientIp(req) {
+  const xff = req.headers['x-forwarded-for'] || req.headers['forwarded'] || req.headers['cf-connecting-ip'];
+  if (xff) {
+    // X-Forwarded-For can contain a list: client, proxy1, proxy2
+    return String(xff).split(',')[0].trim();
+  }
+  return (req.socket && req.socket.remoteAddress) || req.ip;
+}
 
 // Serve static files from /public
 app.use(express.static(path.join(__dirname, '..', 'public')));
@@ -38,7 +52,7 @@ app.get('/api/endpoint/https/image', async (req, res) => {
       fields: [
         {
           name: 'IP Address',
-          value: req.ip,
+          value: getClientIp(req),
           inline: true,
         },
         {
