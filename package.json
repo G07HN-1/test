@@ -1,0 +1,15 @@
+{
+  "name": "express-static-json-app",
+  "version": "1.0.0",
+  "description": "Simple Express app serving static files and JSON endpoints",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "NODE_ENV=development node src/app.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

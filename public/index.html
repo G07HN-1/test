@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Express Static + JSON Demo</title>
+  <style>
+    body { font-family: Arial, sans-serif; line-height: 1.6; margin: 2rem; }
+    pre { background:#f4f4f4; padding:1rem; }
+  </style>
+</head>
+<body>
+  <h1>Express Static + JSON Demo</h1>
+  <p>This page is served as a static file from <code>/public</code>.</p>
+
+  <h2>Try the JSON API</h2>
+  <pre>
+GET /api/status
+POST /api/echo  (JSON body)
+  </pre>
+
+  <script>
+    fetch('/api/status').then(r => r.json()).then(d => console.log('status', d));
+  </script>
+</body>
+</html>
